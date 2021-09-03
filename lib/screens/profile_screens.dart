@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _menuStatus = (_menuStatus == MenuStatus.closed)
                       ? MenuStatus.open
                       : MenuStatus.closed;
-
+// text
                   switch (_menuStatus) {
                     case MenuStatus.open:
                       bodyXPos = -menuWidth;
