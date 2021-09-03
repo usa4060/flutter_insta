@@ -2,10 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:insta/constants/common_size.dart';
 import 'package:insta/constants/screen_size.dart';
+import 'package:insta/screens/profile_screens.dart';
 import 'package:insta/widgets/rounded_avatar.dart';
 
 class ProfileBody extends StatefulWidget {
-  ProfileBody({Key? key}) : super(key: key);
+  const ProfileBody({
+    Key? key,
+    required this.onMenuChanged,
+  }) : super(key: key);
+
+  final Function onMenuChanged;
 
   @override
   _ProfileBodyState createState() => _ProfileBodyState();
@@ -17,61 +23,92 @@ class _ProfileBodyState extends State<ProfileBody> {
   double _rightImagesPageMargin = size.width;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: CustomScrollView(
-        slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(common_gap),
-                    child: RoundedAvatar(
-                      size: 80,
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: common_gap),
-                      child: Table(
-                        children: [
-                          TableRow(
-                            children: [
-                              _valuetext('123123'),
-                              _valuetext('123123'),
-                              _valuetext('123123'),
-                            ],
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _appbar(),
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(common_gap),
+                          child: RoundedAvatar(
+                            size: 80,
                           ),
-                          TableRow(
-                            children: [
-                              _valuetext('Post'),
-                              _valuetext('Followers'),
-                              _valuetext('Following'),
-                            ],
-                          )
-                        ],
-                      ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: common_gap),
+                            child: Table(
+                              children: [
+                                TableRow(
+                                  children: [
+                                    _valueText('123123'),
+                                    _valueText('123123'),
+                                    _valueText('123123'),
+                                  ],
+                                ),
+                                TableRow(
+                                  children: [
+                                    _lableText('Post'),
+                                    _lableText('Followers'),
+                                    _lableText('Following'),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
-              _username(),
-              _userbio(),
-              _editProfileBtn(),
-              _tapButtons(),
-              _selectedIndicator(),
-            ]),
-          ),
-          _imagesPager(),
+                    _username(),
+                    _userbio(),
+                    _editProfileBtn(),
+                    _tapButtons(),
+                    _selectedIndicator(),
+                  ]),
+                ),
+                _imagesPager(),
+              ],
+            ),
+          )
         ],
       ),
+      // ignore: dead_code
     );
   }
 
-  Text _valuetext(String text) => Text(
+  Row _appbar() {
+    return Row(
+      children: [
+        SizedBox(
+          width: 44,
+        ),
+        Expanded(child: Text('The name', textAlign: TextAlign.center)),
+        IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              widget.onMenuChanged();
+            }),
+      ],
+    );
+  }
+
+  Text _valueText(String text) => Text(
         text,
         textAlign: TextAlign.center,
         style: TextStyle(fontWeight: FontWeight.bold),
+      );
+
+  Text _lableText(String lable) => Text(
+        lable,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.w300, fontSize: 11),
       );
 
   SliverToBoxAdapter _imagesPager() {
