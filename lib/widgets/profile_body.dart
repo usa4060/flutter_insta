@@ -22,7 +22,7 @@ class _ProfileBodyState extends State<ProfileBody>
   SelectedTab _selectedTab = SelectedTab.left;
   double _leftImagesPageMargin = 0;
   double _rightImagesPageMargin = size.width;
-  AnimationController _iconAnimationController;
+  late AnimationController _iconAnimationController;
 
   @override
   void initState() {
