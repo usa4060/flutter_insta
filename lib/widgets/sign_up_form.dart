@@ -26,6 +26,7 @@ class _SignUpFormState extends State<SignUpForm> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.grey[50],
         resizeToAvoidBottomInset: true,
         body: Padding(
           padding: const EdgeInsets.all(common_gap),
@@ -80,29 +81,75 @@ class _SignUpFormState extends State<SignUpForm> {
                     }
                   },
                 ),
-                FlatButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      print('Validation success!!');
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    }
-                  },
-                  color: Colors.blue,
-                  child: Text(
-                    'join',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6)),
-                ),
+                SizedBox(height: common_s_gap),
+                _submitButton(context),
+                SizedBox(height: common_s_gap),
+                _orDivider(),
+                FlatButton.icon(
+                    onPressed: null,
+                    textColor: Colors.blue,
+                    icon: ImageIcon(AssetImage('assets/images/facebook.png')),
+                    label: Text(
+                      "Login with facebook",
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ))
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  FlatButton _submitButton(BuildContext context) {
+    return FlatButton(
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {
+          print('Validation success!!');
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => HomePage()));
+        }
+      },
+      color: Colors.blue,
+      child: Text(
+        'join',
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+    );
+  }
+
+  Stack _orDivider() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Positioned(
+          left: 0,
+          right: 0,
+          height: 1,
+          child: Container(
+            color: Colors.grey[500],
+            height: 1,
+            width: 60,
+          ),
+        ),
+        Container(
+          color: Colors.grey[50],
+          height: 3,
+          width: 60,
+        ),
+        Text(
+          'OR',
+          style: TextStyle(
+            color: Colors.grey[500],
+            fontWeight: FontWeight.bold,
+          ),
+        )
+      ],
     );
   }
 
