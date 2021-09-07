@@ -85,9 +85,9 @@ class _SignUpFormState extends State<SignUpForm> {
                 _submitButton(context),
                 SizedBox(height: common_s_gap),
                 _orDivider(),
-                FlatButton.icon(
-                    onPressed: null,
-                    textColor: Colors.blue,
+                TextButton.icon(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(primary: Colors.blue),
                     icon: ImageIcon(AssetImage('assets/images/facebook.png')),
                     label: Text(
                       "Login with facebook",
@@ -103,8 +103,8 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  FlatButton _submitButton(BuildContext context) {
-    return FlatButton(
+  TextButton _submitButton(BuildContext context) {
+    return TextButton(
       onPressed: () {
         if (_formKey.currentState!.validate()) {
           print('Validation success!!');
@@ -112,14 +112,16 @@ class _SignUpFormState extends State<SignUpForm> {
               MaterialPageRoute(builder: (context) => HomePage()));
         }
       },
-      color: Colors.blue,
+      style: TextButton.styleFrom(
+        primary: Colors.blue,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      ),
       child: Text(
         'join',
         style: TextStyle(
           color: Colors.white,
         ),
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     );
   }
 
