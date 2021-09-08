@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:insta/constants/common_size.dart';
-import 'package:insta/home_page.dart';
+import 'package:insta/widgets/or_dibider.dart';
+import 'package:insta/widgets/sign_in_form.dart';
+import 'package:insta/constants/input_deco.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
@@ -39,7 +41,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 TextFormField(
                   cursorColor: Colors.black54,
                   controller: _emailController,
-                  decoration: _inputDeco("Email"),
+                  decoration: inputDeco("Email"),
                   validator: (text) {
                     if (text!.isNotEmpty && text.contains("@")) {
                       return null;
@@ -55,7 +57,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   obscureText: true,
                   cursorColor: Colors.black54,
                   controller: _pwController,
-                  decoration: _inputDeco("Password"),
+                  decoration: inputDeco("Password"),
                   validator: (text) {
                     if (text!.isNotEmpty && (text.length >= 8)) {
                       return null;
@@ -71,7 +73,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   obscureText: true,
                   cursorColor: Colors.black54,
                   controller: _cpwController,
-                  decoration: _inputDeco("Confirm Password"),
+                  decoration: inputDeco("Confirm Password"),
                   validator: (text) {
                     if (_cpwController.text == _pwController.text &&
                         text!.isNotEmpty) {
@@ -84,7 +86,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 SizedBox(height: common_s_gap),
                 _submitButton(context),
                 SizedBox(height: common_s_gap),
-                _orDivider(),
+                OrDivider(),
                 TextButton.icon(
                     onPressed: () {},
                     style: TextButton.styleFrom(primary: Colors.blue),
@@ -109,77 +111,20 @@ class _SignUpFormState extends State<SignUpForm> {
         if (_formKey.currentState!.validate()) {
           print('Validation success!!');
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomePage()));
+              MaterialPageRoute(builder: (context) => SignInForm()));
         }
       },
       style: TextButton.styleFrom(
+        backgroundColor: Colors.blue,
         primary: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
       ),
       child: Text(
-        'join',
+        'Sign In',
         style: TextStyle(
           color: Colors.white,
         ),
       ),
     );
-  }
-
-  Stack _orDivider() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Positioned(
-          left: 0,
-          right: 0,
-          height: 1,
-          child: Container(
-            color: Colors.grey[500],
-            height: 1,
-            width: 60,
-          ),
-        ),
-        Container(
-          color: Colors.grey[50],
-          height: 3,
-          width: 60,
-        ),
-        Text(
-          'OR',
-          style: TextStyle(
-            color: Colors.grey[500],
-            fontWeight: FontWeight.bold,
-          ),
-        )
-      ],
-    );
-  }
-
-  InputDecoration _inputDeco(String hint) {
-    return InputDecoration(
-      hintText: hint,
-      enabledBorder: _activeInputBorder(),
-      focusedBorder: _activeInputBorder(),
-      errorBorder: _errorInputBorder(),
-      focusedErrorBorder: _errorInputBorder(),
-      filled: true,
-      fillColor: Colors.grey[300],
-    );
-  }
-
-  OutlineInputBorder _errorInputBorder() {
-    return OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.redAccent,
-        ),
-        borderRadius: BorderRadius.circular(common_l_gap));
-  }
-
-  OutlineInputBorder _activeInputBorder() {
-    return OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.grey.shade300,
-        ),
-        borderRadius: BorderRadius.circular(common_l_gap));
   }
 }
