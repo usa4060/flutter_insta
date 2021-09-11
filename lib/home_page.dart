@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insta/constants/screen_size.dart';
+import 'package:insta/screens/camera_screen.dart';
 import 'package:insta/screens/profile_screens.dart';
 
 import 'screens/feed_screen.dart';
@@ -58,9 +59,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onBtmItemClick(int index) {
-    print(index);
-    setState(() {
-      _selectedIndex = index;
-    });
+    switch (index) {
+      case 2:
+        _openCamera();
+        break;
+      default:
+        {
+          setState(() {
+            _selectedIndex = index;
+          });
+        }
+    }
+  }
+
+  void _openCamera() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => CameraScreen()));
   }
 }
