@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _onBtmItemClick(int index) {
+  void _onBtmItemClick(index) {
     switch (index) {
       case 2:
         _openCamera();

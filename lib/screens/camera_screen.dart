@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insta/widgets/take_photo.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
@@ -8,8 +9,9 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
-  int _currentIndex = 0;
-  PageController _pageController = PageController();
+  int _currentIndex = 1;
+  PageController _pageController = PageController(initialPage: 1);
+  String _title = "Photo";
 
   @override
   void dispose() {
@@ -19,15 +21,16 @@ class _CameraScreenState extends State<CameraScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(_title),
+      ),
       body: PageView(
         controller: _pageController,
         children: [
           Container(
             color: Colors.greenAccent,
           ),
-          Container(
-            color: Colors.blueAccent,
-          ),
+          TakePhoto(),
           Container(
             color: Colors.amberAccent,
           )
@@ -35,6 +38,17 @@ class _CameraScreenState extends State<CameraScreen> {
         onPageChanged: (index) {
           setState(() {
             _currentIndex = index;
+            switch (_currentIndex) {
+              case 0:
+                _title = "Gallary";
+                break;
+              case 1:
+                _title = "Photo";
+                break;
+              case 2:
+                _title = "Video";
+                break;
+            }
           });
         },
       ),
